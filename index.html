@@ -75,7 +75,7 @@
         .nav-links {
             display: flex;
             list-style: none;
-            gap: 2.5rem;
+            gap: 2rem;
         }
 
         .nav-links a {
@@ -250,7 +250,7 @@
 
         .item-img {
     width: 100%;
-    height: 220px;
+    height: 250px;
     background-size: cover;          /* ছবিটি পুরো জায়গা জুড়ে বসবে */
     background-position: center;     /* ছবি মাঝখানে থাকবে */
     display: flex;
@@ -498,15 +498,89 @@
     font-size: 14px;
 }
 
+#photos {
+    display: grid;
+    /* ৩টি সমান কলাম */
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+#photos .gallery-item {
+    aspect-ratio: 4 / 3; /* ছবিগুলোর অনুপাত ঠিক রাখবে */
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+#photos .gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* ছবি যেন ফেটে না যায় */
+    transition: transform 0.3s ease;
+}
+
+#photos .gallery-item:hover img {
+    transform: scale(1.05); /* মাউস নিলে সামান্য জুম হবে */
+}
+
+/* মডাল ব্যাকগ্রাউন্ড */
+.modal {
+    display: none; 
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.6); z-index: 9999;
+    justify-content: center; align-items: center;
+    padding: 10px; /* স্ক্রিনের ধারে যেন লেগে না থাকে */
+}
 
 
-        @media (max-width: 768px) {
+.modal-content {
+     background: white;
+    padding: 25px;
+    width: 90%;
+    max-width: 400px;
+    border-radius: 15px;
+    text-align: center;
+    position: relative;
+    
+    /* Animation-er jonno line-gulo */
+    animation: popupAnimation 0.5s ease-out;
+}
+@keyframes popupAnimation {
+    from {
+        opacity: 0;
+        transform: translateY(50px) scale(0.9); /* Niche theke uthbe */
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* ক্লোজ বাটন */
+.close-btn { 
+    position: absolute; top: 5px; right: 15px; 
+    font-size: 28px; cursor: pointer; color: #333;
+}
+
+/* হোয়াটসঅ্যাপ আইকন */
+.whatsapp-icon { width: 50px; height: 50px; fill: #25D366; }
+
+@media (max-width: 480px) {
+    .modal-content { padding: 20px; }
+    .modal-content h3 { font-size: 1.2rem; }
+    .modal-content p { font-size: 0.9rem; }
+}
+
+
+ @media (max-width: 850px) {
             .navbar {
-                padding: 0 1.5rem;
+                padding: 0 1rem;
             }
 
             .logo-img {
-                height: 60px;
+                height: 65px;
             }
 
             .menu-toggle {
@@ -554,7 +628,11 @@
                 text-align: left;
                 border-bottom: 1px solid var(--gray);
                 font-size: 1.1rem;
-            }
+            }}
+
+
+
+        @media (max-width: 768px) {
 
             .hero h1 {
                 font-size: 2rem;
@@ -614,8 +692,9 @@
 
             <ul class="nav-links" id="nav-list">
                 <li><a href="#hero" onclick="closeMenu()">হোম</a></li>
-                <li><a href="#portfolio" onclick="closeMenu()">আমাদের কালেকশন</a></li>
+                <li><a href="#portfolio" onclick="closeMenu()">প্রোডাক্টসমূহ</a></li>
                 <li><a href="#estimator" onclick="closeMenu()">খরচ হিসাবকারী</a></li>
+                <li><a href="#photos" onclick="closeMenu()">গ্যলারি</a></li>
                 <li><a href="#contact" onclick="closeMenu()">অর্ডার করুন</a></li>
             </ul>
         </nav>
@@ -635,15 +714,15 @@
         <div class="filter-buttons">
             <button class="filter-btn active" onclick="filterItems('all')">সব চারা</button>
             <button class="filter-btn" onclick="filterItems('mango')">আমের জাতসমূহ</button>
-            <button class="filter-btn" onclick="filterItems('plant')">শোভাবর্ধনকারী গাছ</button>
-            <button class="filter-btn" onclick="filterItems('anar')">আনার</button>
+            <button class="filter-btn" onclick="filterItems('Guava')">পেয়ারা গাছ</button>
+            <button class="filter-btn" onclick="filterItems('dalim')">ডালিম গাছ</button>
         </div>
 
         <div class="gallery-grid" id="gallery">
             
             <!-- 🔗 লিংক ১: আম্রপালি (href="details-amrapali.html" পরিবর্তনযোগ্য) -->
             <a href="details-amrapali.html" class="gallery-item" data-category="mango">
-                <div class="item-img" style="background-image: url(i.jpg);"></div>
+                <div class="item-img" style="background-image: url(mango1.png);"></div>
                 <div class="item-info">
                     <span class="item-tag">আমের চারা</span>
                     <h3 class="item-title">আম্রপালি হাইব্রিড কলম</h3>
@@ -653,7 +732,7 @@
 
             <!-- 🔗 লিংক ২: হাড়িভাঙ্গা (href="details-harivanga.html" পরিবর্তনযোগ্য) -->
             <a href="details-harivanga.html" class="gallery-item" data-category="mango">
-                <div class="item-img" style="background-image: url(i.jpg);"></div>
+                <div class="item-img" style="background-image: url(mango2.png);"></div>
                 <div class="item-info">
                     <span class="item-tag">আমের চারা</span>
                     <h3 class="item-title">হাড়িভাঙ্গা প্রিমিয়াম</h3>
@@ -662,18 +741,18 @@
             </a>
 
             <!-- 🔗 লিংক ৩: অ্যারিকা পাম (href="details-areca-palm.html" পরিবর্তনযোগ্য) -->
-            <a href="details-areca-palm.html" class="gallery-item" data-category="plant">
-                <div class="item-img" style="background-image: url(i.jpg);"></div>
+            <a href="details-areca-palm.html" class="gallery-item" data-category="Guava">
+                <div class="item-img" style="background-image: url(Guava1.png);"></div>
                 <div class="item-info">
-                    <span class="item-tag">ইনডোর প্ল্যান্ট</span>
-                    <h3 class="item-title">অ্যারিকা পাম (Areca Palm)</h3>
-                    <p>বাতাস পরিশোধনকারী চমৎকার ইনডোর প্ল্যান্ট। বাড়ি বা অফিসের সৌন্দর্য বৃদ্ধিতে অতুলনীয়。</p>
+                    <span class="item-tag">পেয়ারা গাছ</span>
+                    <h3 class="item-title">পেয়ারা গাছ</h3>
+                    <p>বাড়ির আঙিনায়, ছাদে টবে বা ছায়ামুক্ত রোদযুক্ত খোলা জায়গায় ভালো জন্মে।</p>
                 </div>
             </a>
 
             <!-- 🔗 লিংক ৪: অ্যাডেনিয়াম বনসাই (href="details-bonsai.html" পরিবর্তনযোগ্য) -->
-            <a href="details-bonsai.html" class="gallery-item" data-category="plant">
-                <div class="item-img" style="background-image: url(i.jpg);"></div>
+            <a href="details-bonsai.html" class="gallery-item" data-category="dalim">
+                <div class="item-img" style="background-image: url(dalim1.png);"></div>
                 <div class="item-info">
                     <span class="item-tag">বনসাই</span>
                     <h3 class="item-title">THAI অ্যাডেনিয়াম ডেজার্ট রোজ</h3>
@@ -725,6 +804,15 @@
         </div>
     </section>
 
+        <section id="photos" class="gallery-container">
+    <div class="gallery-item"><img src="mango1.png" alt="Plant 1"></div>
+    <div class="gallery-item"><img src="mango2.png" alt="Plant 2"></div>
+    <div class="gallery-item"><img src="Guava1.png" alt="Plant 3"></div>
+    <div class="gallery-item"><img src="dalim1.png" alt="Plant 4"></div>
+    <div class="gallery-item"><img src="image5.jpg" alt="Plant 5"></div>
+    <div class="gallery-item"><img src="image6.jpg" alt="Plant 6"></div>
+</section>
+
     <!-- হোপাটসঅ্যাপ অর্ডার সেকশন -->
     <section id="contact" class="whatsapp-section">
         <div class="whatsapp-container">
@@ -738,6 +826,19 @@
             </a>
         </div>
     </section>
+
+
+
+<div id="whatsapp-popup" class="modal">
+    <div class="modal-content">
+        <span class="close-btn">&times;</span>
+        <svg class="whatsapp-icon" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397 0 11.948 0c3.179.001 6.161 1.24 8.402 3.486 2.243 2.246 3.48 5.23 3.475 8.411-.011 6.597-5.348 11.943-11.9 11.943-2.004-.001-3.973-.507-5.714-1.478L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.743 1.451 5.416 0 9.822-4.381 9.83-9.764.004-2.605-.1-5.056-1.933-6.89C17.396 2.116 14.883 1.002 11.95 1c-5.424 0-9.83 4.396-9.837 9.783-.002 1.77.472 3.435 1.4 4.903L2.43 21.753l6.217-1.63zM17.436 14.19c-.326-.165-1.933-.956-2.231-1.064-.297-.11-.513-.165-.73.164-.216.33-.837 1.063-1.026 1.28-.19.215-.377.243-.703.078-.327-.164-1.38-.509-2.63-1.627-.972-.867-1.627-1.939-1.819-2.267-.19-.329-.02-.507.144-.671.148-.148.327-.382.49-.574.162-.192.216-.328.325-.546.11-.219.054-.41-.027-.573-.082-.164-.73-1.759-.999-2.408-.262-.634-.529-.548-.727-.558-.188-.008-.405-.01-.622-.01s-.568.081-.865.41c-.297.328-1.136 1.11-1.136 2.707 0 1.596 1.163 3.136 1.325 3.355.162.219 2.289 3.497 5.545 4.902.774.334 1.378.534 1.849.684.777.247 1.484.212 2.043.129.623-.093 1.933-.791 2.204-1.559.271-.767.271-1.422.19-1.557-.083-.137-.298-.219-.624-.383z"/></svg>
+        <h3>সরাসরি হোয়াটসঅ্যাপে অর্ডার করুন</h3>
+        <p>আপনার পছন্দের চারা অর্ডার করতে আমাদের সাথে যোগাযোগ করুন।</p>
+        <a href="https://wa.me/8801733724364?text=হ্যালো,%20আমি%20আপনার%20ওয়েবসাইট%20থেকে%20অর্ডার%20করতে%20চাই।" target="_blank" class="whatsapp-btn">হোয়াটসঅ্যাপ করুন</a>
+    </div>
+</div>
+
 
    <footer class="footer">
     <div class="footer-container">
@@ -833,6 +934,16 @@
         }
 
         window.onload = calculateCost;
+
+        window.onload = function() {
+        setTimeout(function() {
+            document.getElementById('whatsapp-popup').style.display = 'flex';
+        }, 500);
+    };
+    // ক্লোজ বাটনে ক্লিক করলে বন্ধ হবে
+    document.querySelector('.close-btn').onclick = function() {
+        document.getElementById('whatsapp-popup').style.display = 'none';
+    };
     </script>
 </body>
 </html>
